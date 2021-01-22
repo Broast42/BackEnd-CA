@@ -11,6 +11,11 @@ exports.up = async (knex) => {
         table.string("title")
         table.string("message", 10000)
     }))
+
+    await knex.schema.createTable("videos", (table => {
+        table.string("name")
+        table.string("url")
+    }))
 };
 
 exports.down = async (knex) => {
