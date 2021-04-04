@@ -30,10 +30,27 @@ exports.up = async (knex) => {
         table.integer("cat_id").references("id").inTable("serv_cat")
     }))
 
+    await knex.schema.createTable("b_and_a", (table => {
+        table.increments("id")
+        table.string("title")
+        table.string("description", 10000)
+        table.string("pic_url_b")
+        table.string("pic_id")
+    }))
+
+    await knex.schema.createTable("a_pic", table => {
+        table.increments("id")
+        table.integer("ba_id").references("id").inTable("b_and_a")
+        table.string("pic_url")
+        table.string("pic_id")
+    })
+
     
 };
 
 exports.down = async (knex) => {
+    await knex.schema.dropTableIfExists("a_pic")
+    await knex.schema.dropTableIfExists("b_and_a")
     await knex.schema.dropTableIfExists("serv_service")
     await knex.schema.dropTableIfExists("serv_cat")
     await knex.schema.dropTableIfExists("videos")
