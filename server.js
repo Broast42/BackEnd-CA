@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const authRouter = require("./api/auth/auth-router")
 
 const server = express();
 
@@ -9,6 +10,9 @@ server.use(cors({origin: true, credentials: true }));
 server.get("/", (req, res) =>{
     res.json({message: "carpet-advantage api is running"})
 });
+
+server.use('/auth', authRouter)
+
 
 
 //default error
